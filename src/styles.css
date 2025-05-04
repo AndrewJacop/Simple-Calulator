@@ -5,9 +5,23 @@
   font-family: sans-serif;
 }
 
+/* Add Nyan Cat background to the body */
+body {
+  /* Set a fallback background color */
+  background-color: #f0f0f0; /* Default light background */
+  /* Ensure the image covers the screen */
+  /* background-image: url('https://i.gifer.com/XOsX.gif'); */
+  background-image: url('https://i.gifer.com/yC.gif');
+  background-repeat: no-repeat;
+  background-size: cover; /* Make the GIF cover the entire screen */
+  background-position: center; /* Center the GIF */
+  /* Keep the background fixed so it doesn't scroll with the content */
+  background-attachment: fixed;
+}
+
 /* Default Dark Mode Styles */
 body.dark-mode {
-  background-color: black;
+  background-color: black; 
 }
 
 .dark-mode .text-white {
@@ -15,6 +29,14 @@ body.dark-mode {
   margin-top: 10px;
   font-size: 1.1rem;
 }
+
+/* Add background to calculator in dark mode */
+.dark-mode .calculator {
+  background-color: rgba(0, 0, 0, 0.85); /* Semi-transparent black background */
+  padding: 20px; /* Add some padding */
+  border-radius: 10px; /* Optional: round corners */
+}
+
 
 /* Light Mode Styles */
 body.light-mode {
@@ -25,6 +47,13 @@ body.light-mode {
   color: black; /* Change text color for light mode */
   margin-top: 10px;
   font-size: 1.1rem;
+}
+
+/* Add background to calculator in light mode */
+.light-mode .calculator {
+  background-color: rgba(240, 240, 240, 0.9); /* Semi-transparent light background */
+  padding: 20px; /* Add some padding */
+  border-radius: 10px; /* Optional: round corners */
 }
 
 .light-mode .input-field,
