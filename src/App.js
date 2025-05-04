@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ButtonsContainer from "./components/ButtonsContainer";
 import DisplayContainer from "./components/DisplayContainer";
 import "./styles.css";
@@ -6,6 +6,17 @@ import "./styles.css";
 function App() {
   const [display, setDisplay] = useState("");
   const [result, setResult] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
+
+  // Function to toggle the theme
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  // Apply the theme class to the body element
+  useEffect(() => {
+    document.body.className = isDarkMode ? 'dark-mode' : 'light-mode';
+  }, [isDarkMode]);
 
   function handleClick(e) {
     const targetValue = e.target.name;
@@ -77,6 +88,10 @@ function App() {
 
   return (
     <>
+      {/* Add the theme toggle button */}
+      <button onClick={toggleTheme} className="theme-toggle-btn">
+        {isDarkMode ? "Light Mode" : "Dark Mode"}
+      </button>
       <div className="container">
         <div className="calculator">
           <DisplayContainer

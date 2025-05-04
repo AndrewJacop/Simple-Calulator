@@ -5,15 +5,80 @@
   font-family: sans-serif;
 }
 
-body {
+/* Default Dark Mode Styles */
+body.dark-mode {
   background-color: black;
 }
 
-.text-white {
+.dark-mode .text-white {
   color: white;
   margin-top: 10px;
   font-size: 1.1rem;
 }
+
+/* Light Mode Styles */
+body.light-mode {
+  background-color: #f0f0f0; /* Light background */
+}
+
+.light-mode .text-white {
+  color: black; /* Change text color for light mode */
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+.light-mode .input-field,
+.light-mode .answer-field {
+  background: #e0e0e0; /* Lighter display background */
+  color: black;
+}
+
+.light-mode button {
+  background: #dcdcdc; /* Lighter button background */
+  color: black;
+  border-bottom-color: rgba(0, 0, 0, 0.15); /* Adjust border color for light mode */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Adjust shadow for light mode */
+}
+
+/* Adjust active state for light mode buttons */
+.light-mode button:active {
+  /* background: #c0c0c0; Remove this */
+  top: 3px;
+  border-bottom-width: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .colored-btn {
+  background-color: #7fffd4; /* Adjust colored button for light mode */
+  color: black;
+}
+
+.light-mode .colored-btn:active {
+  background-color: #ff7f50; /* Adjust active state for colored button */
+  color: white;
+}
+
+/* Ensure colored button active state in light mode also gets the 3D press effect */
+.light-mode .colored-btn:active {
+  background-color: #ff7f50; /* Adjust active state for colored button */
+  color: white;
+  /* Inherit general button:active styles */
+  top: 3px;
+  border-bottom-width: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure equals button animation works in light mode */
+.light-mode .equals-btn:active {
+  animation: pressAnimation 0.2s ease-out;
+  /* Apply specific light mode active styles if needed, or inherit */
+  top: 3px;
+  border-bottom-width: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* End Light Mode Styles */
+
 
 .container {
   height: 100vh;
@@ -87,8 +152,13 @@ button {
   padding: 20px;
   font-size: 30px;
   background: white;
-  border: none;
-  border-radius: 5px;
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Slightly rounder corners */
+  border-bottom: 5px solid rgba(0, 0, 0, 0.2); /* Darker bottom border for 3D effect */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: all 0.1s ease-out; /* Smooth transition for press effect */
+  position: relative; /* Needed for :active state positioning */
+  top: 0; /* Initial top position */
 }
 
 .colored-btn {
@@ -105,6 +175,64 @@ button {
   width: 50%;
 }
 
+/* General button press effect */
 button:active {
-  background: lightgray;
+  /* background: lightgray; Remove this generic one */
+  top: 3px; /* Move button down slightly */
+  border-bottom-width: 2px; /* Reduce bottom border */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); /* Reduce shadow */
+}
+
+/* Define keyframes for equals button press animation */
+@keyframes pressAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Apply animation to equals button on active state */
+.equals-btn:active {
+  animation: pressAnimation 0.2s ease-out;
+  /* Keep the general active styles as well */
+  top: 3px;
+  border-bottom-width: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Theme Toggle Button Styles */
+/* Keep existing :active styles for theme toggle if needed, or adjust */
+.theme-toggle-btn:active {
+   /* Example: Keep its specific active style or inherit general button:active */
+   top: 3px;
+   border-bottom-width: 2px;
+   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+.theme-toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: auto; /* Adjust width */
+  height: auto; /* Adjust height */
+  padding: 10px 15px;
+  font-size: 1rem; /* Smaller font size */
+  z-index: 10; /* Ensure it's above other elements */
+  /* Keep specific theme styles for the button itself if needed */
+}
+
+/* Example: Specific styles for the toggle button in dark/light mode */
+.dark-mode .theme-toggle-btn {
+  background-color: aqua;
+  color: black;
+}
+
+.light-mode .theme-toggle-btn {
+  background-color: #007bff; /* Example: Blue background in light mode */
+  color: white;
 }

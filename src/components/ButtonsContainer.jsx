@@ -40,7 +40,7 @@ function ButtonsContainer({ handleClick, operatorClick, handleEqual }) {
       <div className="btn-container">
         <Button handleClick={handleClick} name={0} value={0} />
         <Button
-          className="span-two colored-btn"
+          className="span-two colored-btn equals-btn" // Added equals-btn class
           handleClick={handleEqual}
           name={"="}
           value={"="}
