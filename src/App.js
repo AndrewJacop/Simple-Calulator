@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from "react";
 import ButtonsContainer from "./components/ButtonsContainer";
 import DisplayContainer from "./components/DisplayContainer";
+import EmojiBubble from "./components/EmojiBubble";
 import "./styles.css";
 
 function App() {
   const [display, setDisplay] = useState("");
   const [result, setResult] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [bubbles, setBubbles] = useState([]);
+  const [showDialog, setShowDialog] = useState(false);
+  const [poppedEmoji, setPoppedEmoji] = useState('');
 
-  // Function to toggle the theme
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-  // Apply the theme class to the body element
   useEffect(() => {
     document.body.className = isDarkMode ? 'dark-mode' : 'light-mode';
   }, [isDarkMode]);
+
+  useEffect(() => {
+    const bubbleInterval = setInterval(() => {
+      setBubbles(prev => [...prev, { id: Date.now() + Math.random() }]);
+    }, 3000);
+
+    return () => clearInterval(bubbleInterval);
+  }, []);
+
+  const handlePop = (emoji) => {
+    setPoppedEmoji(emoji);
+    setShowDialog(true);
+    setTimeout(() => setShowDialog(false), 2000);
+    setBubbles(prev => prev.slice(1));
+  };
 
   function handleClick(e) {
     const targetValue = e.target.name;
@@ -26,8 +39,6 @@ function App() {
   function operatorClick(operator) {
     let lastCharacter = display.slice(-2);
     let operatorsArray = ["+ ", "- ", "* ", "/ "];
-
-    console.log(lastCharacter);
 
     if (display === "" || operatorsArray.includes(lastCharacter)) return;
 
@@ -86,9 +97,12 @@ function App() {
     setDisplay(display.slice(0, -1));
   }
 
+  function toggleTheme() {
+    setIsDarkMode(!isDarkMode);
+  }
+
   return (
     <>
-      {/* Add the theme toggle button */}
       <button onClick={toggleTheme} className="theme-toggle-btn">
         {isDarkMode ? "Light Mode" : "Dark Mode"}
       </button>
@@ -108,6 +122,14 @@ function App() {
           <p className="text-white">Created by Abdur Rehman</p>
         </div>
       </div>
+      {bubbles.map(bubble => (
+        <EmojiBubble key={bubble.id} onPop={handlePop} />
+      ))}
+      {showDialog && (
+        <div className="emoji-dialog">
+          You popped a {poppedEmoji} bubble!
+        </div>
+      )}
     </>
   );
 }
